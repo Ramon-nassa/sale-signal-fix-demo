@@ -4,9 +4,9 @@
 
 **A tracking audit and fix for stores and info products that sell with Meta ads. The sale already shows up in Ads Manager. The fix makes sure Meta also knows who bought, so every sale teaches the campaign who to look for.**
 
-[![Watch the 71-second demo](media/poster.jpg)](media/sale-signal-fix.mp4)
+[![Watch the 71-second demo](media/poster.jpg)](https://youtu.be/jH5Y4wWgr44)
 
-*71 seconds, no voice. Click the image to watch. All people, companies and data in the video are fictional; the cost and return trends on screen are illustrative.*
+*71 seconds, no voice. Click the image to watch on YouTube. All people, companies and data in the video are fictional; the cost and return trends on screen are illustrative.*
 
 ## 1. The problem
 
