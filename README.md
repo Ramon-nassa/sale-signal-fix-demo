@@ -60,4 +60,6 @@ Google Ads is next, as a separate module with the same buyer data.
 
 The code is private for now. I walk through it, and run it live, on a call.
 
+Want Meta to know who is buying from your ads? Message me on [LinkedIn](https://www.linkedin.com/in/ramon-nassaralla-322a54180) or at nassaralla23@gmail.com.
+
 **Ramon Nassaralla** · GTM / AI Automation · [LinkedIn](https://www.linkedin.com/in/ramon-nassaralla-322a54180)
