@@ -1,0 +1,235 @@
+{
+  "upstream_commit": "7d85b53",
+  "run_at": "2026-11-21T12:31:54+0000",
+  "graph": "local fake (no network)",
+  "baseline_payloads": [
+    {
+      "event_name": "InitiateCheckout",
+      "event_time": 1795264308,
+      "event_id": "ped_aMV0SE_ImZCs-InitiateCheckout",
+      "action_source": "website",
+      "event_source_url": "http://localhost:8080/c/metodo-demo",
+      "user_data": {
+        "em": [
+          "be89a21a7b4912c9fe472b769a99b2647e2ef7ce4f3124c366ec8b1883bbc69d"
+        ],
+        "ph": [
+          "029c7290f14c4516673508635f0519db95f7daf42057fd0e4ad1de84c5408a66"
+        ],
+        "fbc": "fb.1.1795264308894.FBCLID_AD_A_111",
+        "client_ip_address": "127.0.0.1",
+        "client_user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AuditBrowser"
+      },
+      "custom_data": {
+        "currency": "BRL",
+        "value": 97.0,
+        "content_ids": [
+          "metodo-demo"
+        ]
+      }
+    },
+    {
+      "event_name": "Purchase",
+      "event_time": 1795264308,
+      "event_id": "ped_aMV0SE_ImZCs-Purchase",
+      "action_source": "website",
+      "event_source_url": "http://localhost:8080/c/metodo-demo",
+      "user_data": {
+        "em": [
+          "be89a21a7b4912c9fe472b769a99b2647e2ef7ce4f3124c366ec8b1883bbc69d"
+        ],
+        "ph": [
+          "029c7290f14c4516673508635f0519db95f7daf42057fd0e4ad1de84c5408a66"
+        ],
+        "fbc": "fb.1.1795264308894.FBCLID_AD_A_111",
+        "client_ip_address": "127.0.0.1",
+        "client_user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AuditBrowser"
+      },
+      "custom_data": {
+        "currency": "BRL",
+        "value": 97.0,
+        "content_ids": [
+          "metodo-demo"
+        ]
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "title": "No browser Pixel: Meta only gets InitiateCheckout + Purchase, nothing to deduplicate",
+      "reproduced": true,
+      "evidence": {
+        "pixel_snippet_in_vsl_or_checkout_html": false,
+        "events_tracked_internally": [
+          "visita",
+          "vsl_play",
+          "vsl_25",
+          "cta_clique",
+          "checkout",
+          "compra"
+        ],
+        "events_sent_to_meta": [
+          "InitiateCheckout",
+          "Purchase"
+        ],
+        "missing_standard_events": [
+          "PageView",
+          "ViewContent",
+          "Lead",
+          "AddPaymentInfo"
+        ],
+        "event_ids_sent": [
+          "ped_aMV0SE_ImZCs-InitiateCheckout",
+          "ped_aMV0SE_ImZCs-Purchase"
+        ],
+        "browser_pixel_events": [],
+        "browser_uses_same_event_id_as_server": false
+      }
+    },
+    {
+      "id": "F2",
+      "title": "Tracker snippet only works on pages served by the funnel itself (relative /t, no CORS)",
+      "reproduced": true,
+      "evidence": {
+        "tracker_fetch_target": "relative '/t'",
+        "OPTIONS_/t_status": 501,
+        "Access-Control-Allow-Origin_on_POST": null,
+        "effect": "pasted on another domain, the beacon posts to that domain's /t, or is blocked by CORS"
+      }
+    },
+    {
+      "id": "F3",
+      "title": "First touch is never updated: a returning visitor keeps the old fbclid and campaign",
+      "reproduced": true,
+      "evidence": {
+        "click_that_brought_the_sale": "FBCLID_NEW_AD / camp_remarketing / ad_NEW",
+        "fbc_sent_to_meta": [
+          "fb.1.1795264309016.FBCLID_OLD_AD"
+        ],
+        "stored_attribution": {
+          "utm_campaign": "camp_topo",
+          "utm_content": "ad_OLD",
+          "fbclid": "FBCLID_OLD_AD"
+        }
+      }
+    },
+    {
+      "id": "F4",
+      "title": "Dashboard attribution stops at campaign level (utm_content stored but never shown)",
+      "reproduced": true,
+      "evidence": {
+        "funnel_query_columns": [
+          "camp",
+          "checkout",
+          "compra",
+          "cta_visto",
+          "receita",
+          "src",
+          "visita",
+          "vsl_play"
+        ],
+        "utm_content_stored_in_db": true,
+        "sample_rows": [
+          {
+            "src": "facebook",
+            "camp": "camp_topo",
+            "visita": 1,
+            "vsl_play": 0,
+            "cta_visto": 0,
+            "checkout": 1,
+            "compra": 1,
+            "receita": 97.0
+          },
+          {
+            "src": "facebook",
+            "camp": "camp_black_friday",
+            "visita": 1,
+            "vsl_play": 1,
+            "cta_visto": 0,
+            "checkout": 1,
+            "compra": 1,
+            "receita": 97.0
+          }
+        ],
+        "attribution_window": null,
+        "ads_manager_reconciliation": null
+      }
+    },
+    {
+      "id": "F5",
+      "title": "Meta send has no queue/retry and runs inside the buyer's request",
+      "reproduced": true,
+      "evidence": {
+        "graph_returned": 500,
+        "attempts_per_event": 1,
+        "resent_after_outage_ended": 0,
+        "checkout_status_for_buyer": 303,
+        "tables_in_db": [
+          "visitante",
+          "evento",
+          "pedido",
+          "membro",
+          "acesso",
+          "progresso",
+          "mensagem",
+          "conversa",
+          "telegram",
+          "anuncio"
+        ],
+        "table_that_logs_capi_results": null,
+        "checkout_latency_when_meta_takes_3s": 3.01
+      }
+    },
+    {
+      "id": "F6",
+      "title": "Low Event Match Quality: no fbp, external_id or name/location keys; Graph version pinned",
+      "reproduced": true,
+      "evidence": {
+        "user_data_keys_sent": [
+          "client_ip_address",
+          "client_user_agent",
+          "em",
+          "fbc",
+          "ph"
+        ],
+        "missing": [
+          "fbp",
+          "external_id",
+          "fn",
+          "ln",
+          "ct",
+          "st",
+          "zp",
+          "country"
+        ],
+        "graph_version_in_code": "v21.0",
+        "graph_path_called": "/000000000000000/events"
+      }
+    },
+    {
+      "id": "F7",
+      "title": "client_ip_address comes from an unchecked X-Forwarded-For header (spoofable)",
+      "reproduced": true,
+      "evidence": {
+        "real_tcp_peer": "127.0.0.1",
+        "header_sent": "X-Forwarded-For: 203.0.113.66",
+        "client_ip_address_sent_to_meta": [
+          "203.0.113.66"
+        ]
+      }
+    }
+  ],
+  "extras": [
+    {
+      "id": "X1",
+      "title": "Purchase has content_ids but no content_type/contents/order_id",
+      "evidence": [
+        "content_ids",
+        "currency",
+        "value"
+      ]
+    }
+  ],
+  "reproduced": "7/7"
+}

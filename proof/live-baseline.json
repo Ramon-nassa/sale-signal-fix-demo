@@ -1,0 +1,27 @@
+{
+  "run_at": "2026-11-21T12:00:34+0000",
+  "graph": "https://graph.facebook.com/v21.0",
+  "test_event_code": "set (value not logged)",
+  "results": [
+    {
+      "event": "InitiateCheckout",
+      "event_id": "ped_q2TRqej9qxPy-InitiateCheckout",
+      "status": "enviado",
+      "resposta": {
+        "events_received": 1,
+        "messages": [],
+        "fbtrace_id": "AFIUfcIRTEHy7mnQQvbqNCY"
+      }
+    },
+    {
+      "event": "Purchase",
+      "event_id": "ped_q2TRqej9qxPy-Purchase",
+      "status": "enviado",
+      "resposta": {
+        "events_received": 1,
+        "messages": [],
+        "fbtrace_id": "AmlL1DBqZr2-AtqQnXcwoxF"
+      }
+    }
+  ]
+}
