@@ -54,7 +54,7 @@ The audited funnel is [funil-aberto](https://github.com/thiagopatzdorf/funil-abe
 
 I have 4 years of hands-on work in paid media and growth, and I have fixed this kind of tracking in client accounts before. Those client numbers stay private. This repository is the rebuilt, documented version: an audit anyone can check, and a fix proven on Meta's own screens with fictional data.
 
-Google Ads is next, as a separate module with the same buyer data.
+Google Ads is covered too. The sale goes from your server to Google Ads with the click id (`gclid`, `gbraid` or `wbraid`), the hashed e-mail and phone, and the order id, so it counts once. It uses the same sender I built and tested for [Lead Signal Engine](https://github.com/Ramon-nassa/lead-signal-engine-demo).
 
 ## 6. The code
 
