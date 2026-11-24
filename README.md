@@ -4,6 +4,8 @@
 
 **A tracking audit and fix for stores and info products that sell with Meta ads. The sale already shows up in Ads Manager. The fix makes sure Meta also knows who bought, so every sale teaches the campaign who to look for.**
 
+**[Live page](https://ramon-nassa.github.io/sale-signal-fix/) · [Book a 15-min call](https://ramon-nassa.github.io/sale-signal-fix/#contact)** · Fixed in 3 business days after access. It works or you don't pay.
+
 [![Watch the 71-second demo](media/poster.jpg)](https://youtu.be/jH5Y4wWgr44)
 
 *71 seconds, no voice. Click the image to watch on YouTube. All people, companies and data in the video are fictional; the cost and return trends on screen are illustrative.*
