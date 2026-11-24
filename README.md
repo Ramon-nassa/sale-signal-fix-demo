@@ -46,7 +46,7 @@ flowchart LR
 | Audit of an open-source sales funnel, every finding asserted on what actually left the server | 7 of 7 gaps reproduced; the 3 that change what Meta learns fixed | [proof/AUDIT.md](proof/AUDIT.md) |
 | Meta Test Events, test pixel, fictional buyer | Purchase and InitiateCheckout **Deduplicated**; 9 user data keys (was 4); Event Match Quality 7.7 on the test dataset | [proof/AUDIT.md](proof/AUDIT.md#4-proof-on-metas-own-screens-test-pixel-2026-11-21) |
 | Meta outage simulated (Graph API returns 500, then 3 s delay) | 0 sales lost, 2 resent after the outage; checkout 3.01 s → 0.01 s | [proof/evidence-after.json](proof/evidence-after.json) |
-| Automated tests | 70 of 70 pass (the funnel's own suite + 6 for the fixes) | code walkthrough on a call |
+| Automated tests (the funnel's own suite + 6 for the fixes) | **PASS** | code walkthrough on a call |
 
 The audited funnel is [funil-aberto](https://github.com/thiagopatzdorf/funil-aberto) (MIT). Credit to its authors; the findings are about tracking, not about the quality of their project.
 
